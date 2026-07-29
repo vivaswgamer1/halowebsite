@@ -2,180 +2,191 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Halo Universe</title>
+<title>Sci-Fi Game Menu</title>
 
 <style>
-*{
+html,body{
     margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-body{
+    overflow:hidden;
+    background:black;
     font-family:Arial,Helvetica,sans-serif;
-    background:#07131f;
+}
+
+#menu{
+    position:absolute;
+    left:70px;
+    top:50%;
+    transform:translateY(-50%);
     color:white;
+    z-index:10;
 }
 
-header{
-    background:linear-gradient(90deg,#003366,#0088ff);
-    padding:20px;
-    text-align:center;
-}
-
-header h1{
-    font-size:3em;
-}
-
-nav{
-    background:#111;
-    display:flex;
-    justify-content:center;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    padding:15px 25px;
-    transition:.3s;
-}
-
-nav a:hover{
-    background:#0088ff;
-}
-
-.hero{
-    height:500px;
-    background:url("https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1600&q=80") center/cover;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-.hero h2{
-    font-size:3.5em;
-    background:rgba(0,0,0,.6);
-    padding:20px;
-    border-radius:10px;
-}
-
-section{
-    padding:50px;
-    max-width:1100px;
-    margin:auto;
-}
-
-.cards{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#12273d;
-    padding:20px;
-    border-radius:10px;
-    transition:.3s;
-}
-
-.card:hover{
-    transform:scale(1.05);
+h1{
+    font-size:60px;
+    color:#6fd6ff;
+    text-shadow:
+    0 0 10px cyan,
+    0 0 20px cyan,
+    0 0 50px cyan;
 }
 
 button{
-    margin-top:20px;
-    padding:12px 24px;
-    border:none;
-    background:#00aaff;
-    color:white;
-    font-size:18px;
+    display:block;
+    width:260px;
+    margin:20px 0;
+    padding:18px;
+    font-size:22px;
+    color:#9fe8ff;
+    background:rgba(0,100,160,.15);
+    border:2px solid #44ddff;
     border-radius:8px;
     cursor:pointer;
+    transition:.25s;
 }
 
 button:hover{
-    background:#0088cc;
-}
-
-footer{
-    text-align:center;
-    background:#111;
-    padding:20px;
-    margin-top:40px;
+    transform:translateX(15px);
+    background:rgba(0,170,255,.35);
+    box-shadow:0 0 25px cyan;
 }
 </style>
 </head>
 
 <body>
 
-<header>
-<h1>HALO UNIVERSE</h1>
-<p>Welcome Spartan!</p>
-</header>
+<div id="menu">
 
-<nav>
-<a href="#">Home</a>
-<a href="#">Games</a>
-<a href="#">Story</a>
-<a href="#">Characters</a>
-<a href="#">Gallery</a>
-</nav>
+<h1>SPARTAN</h1>
 
-<div class="hero">
-<h2>Finish the Fight</h2>
-</div>
-
-<section>
-<h2>About Halo</h2>
-<br>
-<p>
-Halo is one of the most popular science-fiction game franchises. Play as Master Chief,
-battle the Covenant, explore mysterious Halo rings, and protect humanity.
-</p>
-
-<button onclick="playMessage()">Become a Spartan</button>
-</section>
-
-<section>
-<h2>Featured Games</h2>
-<br>
-
-<div class="cards">
-
-<div class="card">
-<h3>Halo: Combat Evolved</h3>
-<p>The game that started the legendary series.</p>
-</div>
-
-<div class="card">
-<h3>Halo 2</h3>
-<p>Fight across Earth and the stars.</p>
-</div>
-
-<div class="card">
-<h3>Halo 3</h3>
-<p>Finish the Fight with Master Chief.</p>
-</div>
-
-<div class="card">
-<h3>Halo Infinite</h3>
-<p>Explore Zeta Halo in the newest adventure.</p>
-</div>
+<button>Campaign</button>
+<button>Multiplayer</button>
+<button>Forge</button>
+<button>Settings</button>
+<button>Exit</button>
 
 </div>
 
-</section>
+<script type="module">
 
-<footer>
-<p>Halo Fan Website | Created with HTML, CSS & JavaScript</p>
-</footer>
+import * as THREE from "https://unpkg.com/three@0.170.0/build/three.module.js";
 
-<script>
-function playMessage(){
-    alert("Welcome Spartan! Your mission begins now.");
+const scene=new THREE.Scene();
+
+scene.fog=new THREE.FogExp2(0x000814,.02);
+
+const camera=new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+.1,
+1000
+);
+
+camera.position.z=5;
+
+const renderer=new THREE.WebGLRenderer({
+antialias:true
+});
+
+renderer.setSize(innerWidth,innerHeight);
+
+document.body.appendChild(renderer.domElement);
+
+const stars=[];
+
+const geo=new THREE.SphereGeometry(.05,6,6);
+
+const mat=new THREE.MeshBasicMaterial({
+color:0x99ddff
+});
+
+for(let i=0;i<1500;i++){
+
+const s=new THREE.Mesh(geo,mat);
+
+s.position.set(
+(Math.random()-.5)*250,
+(Math.random()-.5)*250,
+(Math.random()-.5)*250
+);
+
+scene.add(s);
+
+stars.push(s);
+
 }
+
+const ring=new THREE.TorusGeometry(
+2,
+.22,
+32,
+180
+);
+
+const ringMat=new THREE.MeshStandardMaterial({
+
+color:0x00bfff,
+
+metalness:1,
+
+roughness:.15,
+
+emissive:0x003366
+
+});
+
+const halo=new THREE.Mesh(ring,ringMat);
+
+halo.rotation.x=Math.PI/2.5;
+
+scene.add(halo);
+
+const light=new THREE.PointLight(0x88ddff,60);
+
+light.position.set(4,4,5);
+
+scene.add(light);
+
+const ambient=new THREE.AmbientLight(0x557799);
+
+scene.add(ambient);
+
+let mx=0;
+let my=0;
+
+window.addEventListener("mousemove",e=>{
+
+mx=(e.clientX/window.innerWidth-.5)*.7;
+
+my=(e.clientY/window.innerHeight-.5)*.5;
+
+});
+
+function animate(){
+
+requestAnimationFrame(animate);
+
+halo.rotation.z+=0.002;
+
+camera.position.x+=(mx-camera.position.x)*.05;
+
+camera.position.y+=(-my-camera.position.y)*.05;
+
+renderer.render(scene,camera);
+
+}
+
+animate();
+
+window.addEventListener("resize",()=>{
+
+camera.aspect=innerWidth/innerHeight;
+
+camera.updateProjectionMatrix();
+
+renderer.setSize(innerWidth,innerHeight);
+
+});
+
 </script>
 
 </body>
