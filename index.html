@@ -58,11 +58,11 @@ button:hover{
 
 <h1>SPARTAN</h1>
 
-<a href="https://vivaswgamer1.github.io/halowebsite/#"></a>
-<button>Multiplayer</button>
-<button>Forge</button>
-<button>Settings</button>
-<button>Exit</button>
+<button onclick="goToCampaign()">Campaign</button>
+<button onclick="goToMultiplayer()">Multiplayer</button>
+<button onclick="goToForge()">Forge</button>
+<button onclick="goToSettings()">Settings</button>
+<button onclick="goToExit()">Exit</button>
 
 </div>
 
@@ -186,8 +186,27 @@ camera.updateProjectionMatrix();
 renderer.setSize(innerWidth,innerHeight);
 
 });
-gotocampaign():
-    window.location.href="https://vivaswgamer1.github.io/halowebsite/campaign
+function goToCampaign() {
+    window.location.href = "https://vivaswgamer1.github.io/halowebsite/campaign";
+}
+
+function goToMultiplayer() {
+    window.location.href = "https://vivaswgamer1.github.io/halowebsite/multiplayer";
+}
+
+function goToForge() {
+    window.location.href = "https://vivaswgamer1.github.io/halowebsite/forge";
+}
+
+function goToSettings() {
+    window.location.href = "https://vivaswgamer1.github.io/halowebsite/settings";
+}
+
+function goToExit() {
+    if (confirm("Exit the game menu?")) {
+        window.location.href = "https://vivaswgamer1.github.io/halowebsite/";
+    }
+}
 
 
 </script>
